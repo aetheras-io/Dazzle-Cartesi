@@ -13,14 +13,14 @@ enum Commands {
 }
 
 #[derive(Debug, Parser)]
-#[clap(name = "Dinder", about = "Dinder Cartesi Dapp")]
-struct Dinder {
+#[clap(name = "Dazzle", about = "Dazzle Cartesi Dapp")]
+struct Dazzle {
     #[clap(subcommand)]
     command: Commands,
 }
 
 fn main() {
-    let opts = Dinder::parse();
+    let opts = Dazzle::parse();
 
     use Commands::*;
     match opts.command {

@@ -1,9 +1,9 @@
 use base64::{engine::general_purpose, Engine as _};
 use domain::cartesi::{
-    DinderNotice, FinishStatus, IndexResponse, Notice, NoticeType, Report, Voucher,
+    DazzleNotice, FinishStatus, IndexResponse, Notice, NoticeType, Report, Voucher,
 };
 use domain::game_core::game::Room;
-use domain::game_core::{DinderError, ServerError};
+use domain::game_core::{DazzleError, ServerError};
 use ethers_core::utils::hex;
 use hyper::{header as HyperHeader, Body, Client, Method, Request, Response};
 
@@ -12,7 +12,7 @@ pub async fn send_room_snapshot_notice(
     user: &str,
     room: &Room,
     balance: Option<String>,
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     let snapshot_room = room.snapshot();
     let room_notice = serde_json::to_string(&snapshot_room).unwrap();
 
@@ -32,14 +32,14 @@ pub async fn send_notice(
     payload: &str,
     user: &str,
     balance: Option<String>,
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     log::debug!("Call to Http Dispatcher: Adding Notice");
     let client = Client::new();
 
     let base64_payload = general_purpose::STANDARD.encode(payload);
     log::debug!("Base64-encoded payload: {}", base64_payload);
 
-    let inner_notice = DinderNotice {
+    let inner_notice = DazzleNotice {
         notice_type,
         base64_content: base64_payload,
         user: user.to_owned(),
@@ -123,7 +123,7 @@ pub async fn send_finish_request(
 pub async fn send_report(
     http_dispatcher_url: &str,
     payload: &str,
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     log::debug!("Call to Http Dispatcher: Adding Report");
     let client = Client::new();
 
@@ -169,7 +169,7 @@ pub async fn send_voucher(
     http_dispatcher_url: &str,
     dapp_address: &str,
     payload: &[u8],
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     log::debug!("Call to Http Dispatcher: Adding Voucher");
     let client = Client::new();
     let hexed_payload = hex::encode(payload);
