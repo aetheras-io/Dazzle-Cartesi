@@ -12,4 +12,4 @@
 # specific language governing permissions and limitations under the License.
 
 set -e
-DAZZLE_DAPP_CONTRACT="0x70ac08179605AF2D9e75782b8DEcDD3c22aA4D0C" rollup-init ./dinder-cartesi-dapp.bin mono
+DAZZLE_DAPP_CONTRACT="0x70ac08179605AF2D9e75782b8DEcDD3c22aA4D0C" rollup-init ./dazzle-cartesi-dapp.bin mono

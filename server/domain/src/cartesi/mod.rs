@@ -15,7 +15,7 @@ pub struct Notice {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct DinderNotice {
+pub struct DazzleNotice {
     pub notice_type: NoticeType,
     pub base64_content: String,
     pub user: String,
@@ -28,7 +28,7 @@ pub struct Report {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct DinderReport {
+pub struct DazzleReport {
     pub error_message: String,
 }
 
@@ -70,15 +70,15 @@ pub struct AdvanceRequest {
 */
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct GameRequest {
-    //#NOTE: must be one of the DinderOperation
+    //#NOTE: must be one of the DazzleOperation
     pub operation: String,
-    //#NOTE: hex-encoded Dinder json request (FindRoomRequest, CreatePrivateRoomRequest, JoinPrivateRoomRequest, CancelRoomRequest, ActiveSkillsRequest, MoveRequest, WithdrawRequest)
+    //#NOTE: hex-encoded Dazzle json request (FindRoomRequest, CreatePrivateRoomRequest, JoinPrivateRoomRequest, CancelRoomRequest, ActiveSkillsRequest, MoveRequest, WithdrawRequest)
     pub data: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, StrumDisplay, EnumString)]
 #[strum(serialize_all = "snake_case")]
-pub enum DinderOperation {
+pub enum DazzleOperation {
     CreatePrivateRoom,
     JoinPrivateRoom,
     CancelRoom,

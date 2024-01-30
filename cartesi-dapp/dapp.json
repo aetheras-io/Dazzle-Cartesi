@@ -1,7 +1,7 @@
 {
   "fs": {
     "files": [
-      "dinder-cartesi-dapp.bin",
+      "dazzle-cartesi-dapp.bin",
       "entrypoint.sh"
     ],
     "size": 32768

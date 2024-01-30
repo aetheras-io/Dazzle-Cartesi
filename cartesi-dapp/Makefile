@@ -61,15 +61,6 @@ start-cartesi-validator:
 	. ./scripts/.env.${NETWORK} ;\
 	DAPP_NAME=${DAPP_NAME} docker compose -f ./docker-compose-testnet.yml -f ./docker-compose.override.yml up
 
-push-to-gcp:
-	docker image tag cartesi/dapp:cartesi-dapp-devel-server gcr.io/aetheras-io/dinder-cartesi:latest
-	docker push gcr.io/aetheras-io/dinder-cartesi:latest
-
-start-gcp-node:
-	. ./scripts/.env_prod ;\
-	. ./scripts/.env.${NETWORK} ;\
-	DAPP_NAME=${DAPP_NAME} docker compose -f ./docker-compose-testnet.yml -f ./docker-compose.aetheras.yml up
-
 # #Need to setup env vars beforehand: WSS_URL=wss://polygon-mumbai.g.alchemy.com/v2/<USER_KEY>, CHAIN_ID=80001
 # start-cartesi-validator-host-mode:
 # 	DAPP_NAME=${DAPP_NAME} docker compose -f ./docker-compose-testnet.yml -f ./docker-compose.override.yml -f ./docker-compose-host.yml up

@@ -6,14 +6,14 @@ use super::ingame_wallet_manager::IngameWalletManager;
 use atb_types::prelude::uuid::Uuid;
 use base64::{engine::general_purpose, Engine as _};
 use domain::cartesi::{
-    AdvanceMetadata, AdvanceRequest, DinderOperation, DinderReport, FinishStatus, GameRequest,
+    AdvanceMetadata, AdvanceRequest, DazzleOperation, DazzleReport, FinishStatus, GameRequest,
     InspectResponse, NoticeType, RequestType, RollupResponse, VoucherMeta,
 };
 use domain::game_core::board::MoveAction;
 use domain::game_core::character::CharacterV2;
 use domain::game_core::config::STAKE;
 use domain::game_core::room_manager::*;
-use domain::game_core::{DinderError, ServerError};
+use domain::game_core::{DazzleError, ServerError};
 use ethers_core::{
     abi::{decode, encode, short_signature, ParamType, Token},
     types::{Address, U256},
@@ -103,7 +103,7 @@ async fn create_private_room(
     room_manager: &mut RoomManager,
     http_dispatcher_url: &str,
     req_data: &[u8],
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     log::debug!("CREATE PRIVATE ROOM");
     let req: CreatePrivateRoomRequest = serde_json::from_slice(req_data).map_err(|e| {
         log::debug!("Failed to deserialize CreatePrivateRoomRequest: {}", e);
@@ -161,7 +161,7 @@ async fn join_private_room(
     http_dispatcher_url: &str,
     req_data: &[u8],
     new_seed: u64,
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     let req: JoinPrivateRoomRequest = serde_json::from_slice(req_data).map_err(|e| {
         log::debug!("Failed to deserialize JoinPrivateRoomRequest: {}", e);
         ServerError::InvalidRequest
@@ -219,7 +219,7 @@ async fn cancel_room(
     room_manager: &mut RoomManager,
     http_dispatcher_url: &str,
     req_data: &[u8],
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     let req: CancelRoomRequest = serde_json::from_slice(req_data).map_err(|e| {
         log::debug!("Failed to deserialize CancelRoomRequest: {}", e);
         ServerError::InvalidRequest
@@ -243,7 +243,7 @@ async fn game_over(
     balance_manager: &mut BalanceManager,
     http_dispatcher_url: &str,
     req_data: &[u8],
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     let req: FindRoomRequest = serde_json::from_slice(req_data).map_err(|e| {
         log::debug!("Failed to deserialize FindRoomRequest: {}", e);
         ServerError::InvalidRequest
@@ -289,7 +289,7 @@ async fn action_move(
     http_dispatcher_url: &str,
     req_data: &[u8],
     new_seed: u64,
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     let req: MoveRequest = serde_json::from_slice(req_data).map_err(|e| {
         log::debug!("Failed to deserialize MoveRequest: {}", e);
         ServerError::InvalidRequest
@@ -319,7 +319,7 @@ async fn activate_skill(
     http_dispatcher_url: &str,
     req_data: &[u8],
     new_seed: u64,
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     let req: ActiveSkillsRequest = serde_json::from_slice(req_data).map_err(|e| {
         log::debug!("Failed to deserialize ActiveSkillsRequest: {}", e);
         ServerError::InvalidRequest
@@ -344,7 +344,7 @@ async fn quit_game(
     room_manager: &mut RoomManager,
     http_dispatcher_url: &str,
     req_data: &[u8],
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     let req: QuitGameRequest = serde_json::from_slice(req_data).map_err(|e| {
         log::debug!("Failed to deserialize QuitGameRequest: {}", e);
         ServerError::InvalidRequest
@@ -362,7 +362,7 @@ async fn transfer(
     dapp_address: &str,
     metadata: AdvanceMetadata,
     req_data: &[u8],
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     let req: TransferRequest =
         serde_json::from_slice(req_data).map_err(|_| ServerError::InvalidRequest)?;
 
@@ -448,7 +448,7 @@ pub async fn attach_ingame_wallet(
     http_dispatcher_url: &str,
     metadata: AdvanceMetadata,
     req_data: &[u8],
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     let req: AttachIngameWalletRequest =
         serde_json::from_slice(req_data).map_err(|_| ServerError::InvalidRequest)?;
 
@@ -484,7 +484,7 @@ pub async fn inspect_state(
     balance_manager: &BalanceManager,
     ingame_wallet_manager: &IngameWalletManager,
     http_dispatcher_url: &str,
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     log::debug!("inspect_state");
 
     let room_manager_state = room_manager.get_current_state();
@@ -506,7 +506,7 @@ pub async fn handle_deposit(
     http_dispatcher_url: &str,
     balance_manager: &mut BalanceManager,
     bz_payload: &[u8],
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     let params = vec![ParamType::Address, ParamType::Uint(256)];
 
     let decoded = decode(&params, bz_payload).map_err(|_| ServerError::InvalidABIData)?;
@@ -585,7 +585,7 @@ pub async fn advance_state(
     http_dispatcher_url: &str,
     ether_portal: &str,
     dapp_address: &str,
-) -> Result<FinishStatus, DinderError> {
+) -> Result<FinishStatus, DazzleError> {
     log::debug!("advance_state");
 
     if request.metadata.is_none() {
@@ -616,7 +616,7 @@ pub async fn advance_state(
     let game_req: GameRequest =
         serde_json::from_slice(&bz_payload).map_err(|_| ServerError::InvalidRequest)?;
 
-    let game_operation: Result<DinderOperation, strum::ParseError> = game_req.operation.parse();
+    let game_operation: Result<DazzleOperation, strum::ParseError> = game_req.operation.parse();
     let vec_request = general_purpose::STANDARD
         .decode(&game_req.data)
         .map_err(|e| {
@@ -631,7 +631,7 @@ pub async fn advance_state(
     let new_rng_seed = metadata.timestamp + metadata.input_index;
 
     match game_operation {
-        Ok(DinderOperation::CreatePrivateRoom) => {
+        Ok(DazzleOperation::CreatePrivateRoom) => {
             if let Err(e) = auth_msg_sender(balance_manager, ingame_wallet_manager, &msg_sender) {
                 log::error!("Report Error: {}", &e);
                 return send_report(http_dispatcher_url, &serialize_error_report(e.into())).await;
@@ -645,7 +645,7 @@ pub async fn advance_state(
                 }
             }
         }
-        Ok(DinderOperation::JoinPrivateRoom) => {
+        Ok(DazzleOperation::JoinPrivateRoom) => {
             if let Err(e) = auth_msg_sender(balance_manager, ingame_wallet_manager, &msg_sender) {
                 log::error!("Report Error: {}", &e);
                 return send_report(http_dispatcher_url, &serialize_error_report(e.into())).await;
@@ -666,7 +666,7 @@ pub async fn advance_state(
                 }
             }
         }
-        Ok(DinderOperation::CancelRoom) => {
+        Ok(DazzleOperation::CancelRoom) => {
             if let Err(e) = auth_msg_sender(balance_manager, ingame_wallet_manager, &msg_sender) {
                 log::error!("Report Error: {}", &e);
                 return send_report(http_dispatcher_url, &serialize_error_report(e.into())).await;
@@ -681,7 +681,7 @@ pub async fn advance_state(
             }
         }
 
-        Ok(DinderOperation::GameOver) => {
+        Ok(DazzleOperation::GameOver) => {
             if let Err(e) = auth_msg_sender(balance_manager, ingame_wallet_manager, &msg_sender) {
                 log::error!("Report Error: {}", &e);
                 return send_report(http_dispatcher_url, &serialize_error_report(e.into())).await;
@@ -702,7 +702,7 @@ pub async fn advance_state(
                 }
             }
         }
-        Ok(DinderOperation::Move) => {
+        Ok(DazzleOperation::Move) => {
             if let Err(e) = auth_msg_sender(balance_manager, ingame_wallet_manager, &msg_sender) {
                 log::error!("Report Error: {}", &e);
                 return send_report(http_dispatcher_url, &serialize_error_report(e.into())).await;
@@ -723,7 +723,7 @@ pub async fn advance_state(
                 }
             }
         }
-        Ok(DinderOperation::ActivateSkill) => {
+        Ok(DazzleOperation::ActivateSkill) => {
             if let Err(e) = auth_msg_sender(balance_manager, ingame_wallet_manager, &msg_sender) {
                 log::error!("Report Error: {}", &e);
                 return send_report(http_dispatcher_url, &serialize_error_report(e.into())).await;
@@ -744,7 +744,7 @@ pub async fn advance_state(
                 }
             }
         }
-        Ok(DinderOperation::QuitGame) => {
+        Ok(DazzleOperation::QuitGame) => {
             if let Err(e) = auth_msg_sender(balance_manager, ingame_wallet_manager, &msg_sender) {
                 log::error!("Report Error: {}", &e);
                 return send_report(http_dispatcher_url, &serialize_error_report(e.into())).await;
@@ -758,7 +758,7 @@ pub async fn advance_state(
                 }
             }
         }
-        Ok(DinderOperation::AttachIngameWallet) => {
+        Ok(DazzleOperation::AttachIngameWallet) => {
             match attach_ingame_wallet(
                 ingame_wallet_manager,
                 http_dispatcher_url,
@@ -774,7 +774,7 @@ pub async fn advance_state(
                 }
             }
         }
-        Ok(DinderOperation::TransferBalance) => {
+        Ok(DazzleOperation::TransferBalance) => {
             match transfer(
                 balance_manager,
                 http_dispatcher_url,
@@ -798,11 +798,11 @@ pub async fn advance_state(
     }
 }
 
-fn serialize_error_report(err: DinderError) -> String {
-    let dinder_report = DinderReport {
+fn serialize_error_report(err: DazzleError) -> String {
+    let dazzle_report = DazzleReport {
         error_message: err.to_string(),
     };
-    serde_json::to_string(&dinder_report).unwrap()
+    serde_json::to_string(&dazzle_report).unwrap()
 }
 
 pub async fn rollup() {

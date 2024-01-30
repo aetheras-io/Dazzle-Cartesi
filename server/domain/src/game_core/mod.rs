@@ -190,7 +190,7 @@ pub enum GameError {
 }
 
 #[derive(thiserror::Error, Debug)]
-pub enum DinderError {
+pub enum DazzleError {
     #[error("GameError: {0}")]
     GameError(#[from] GameError),
     #[error("ServerError: {0}")]

@@ -7,7 +7,7 @@ use crate::game_core::config::{
 };
 use crate::game_core::game::{DungeonDetails, GameResult, Gamer, Room};
 use crate::game_core::skill::SkillInfo;
-use crate::game_core::{DinderError, ServerError};
+use crate::game_core::{DazzleError, ServerError};
 
 use atb::prelude::*;
 use atb_types::prelude::uuid::Uuid;
@@ -278,7 +278,7 @@ impl RoomManager {
         Some(room.game_mode)
     }
 
-    pub fn get_dungeon_stage_lv(&self, player_addr: &str) -> Result<u32, DinderError> {
+    pub fn get_dungeon_stage_lv(&self, player_addr: &str) -> Result<u32, DazzleError> {
         let room = {
             let uuid = self
                 .get_uuid_by_player(player_addr)
@@ -706,7 +706,7 @@ impl RoomManager {
         player_id: &str,
         is_tutorial: bool,
         config_manager: Option<&GameplayConfigManager>,
-    ) -> Result<(Uuid, GameResult), DinderError> {
+    ) -> Result<(Uuid, GameResult), DazzleError> {
         let room = {
             let uuid = self
                 .get_uuid_by_player(player_id)
@@ -727,7 +727,7 @@ impl RoomManager {
             )
         } else {
             if room.gamers.len() != 2 || !room.is_finished() {
-                return Err(DinderError::ServerError(ServerError::InvalidRequest));
+                return Err(DazzleError::ServerError(ServerError::InvalidRequest));
             }
 
             let game_over_result = room
@@ -960,7 +960,7 @@ impl RoomManager {
         action: &MoveAction,
         attacker_id: &Uuid,
         defender_id: &Uuid,
-    ) -> Result<Room, DinderError> {
+    ) -> Result<Room, DazzleError> {
         let config = self
             .config_map
             .get(room_uuid)
@@ -1009,7 +1009,7 @@ impl RoomManager {
         caster_id: Uuid,
         ally_target_id: Uuid,
         rival_target_id: Option<Uuid>,
-    ) -> Result<Room, DinderError> {
+    ) -> Result<Room, DazzleError> {
         let config = self
             .config_map
             .get(room_uuid)
@@ -1053,7 +1053,7 @@ impl RoomManager {
         Ok(room)
     }
 
-    pub fn update_room_rng(&mut self, uuid: &Uuid, new_rng_seed: u64) -> Result<Room, DinderError> {
+    pub fn update_room_rng(&mut self, uuid: &Uuid, new_rng_seed: u64) -> Result<Room, DazzleError> {
         match self.get_room(uuid) {
             Some(room) => {
                 let mut room = room.clone();

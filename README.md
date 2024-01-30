@@ -10,9 +10,6 @@
     - If you are going to test Cartesi on your local environment, there is no need to generate your own wallets, `hardhat` framework already provided some test wallets that have sufficient balance. Just use the test mnemonic words `"test test test test test test test test test test test junk"` to import the test wallets into your Metamask.
     - Make sure you switch network to `localhost:8545`, and change the chainId to `31337`
 
-- Wallets for Goerli testnet (In cloud environment)
-    - In wiki: [Instructions for testing Dinder Cartesi mode](https://github.com/aetheras-io/Dinder/wiki/Instructions-for-testing-Dinder-Cartesi-mode)
-
 ### Testing Cartesi in development phase (Host-mode on local)
 - Start up Rust dapp on host
 ```

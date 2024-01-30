@@ -1,5 +1,5 @@
 use domain::cartesi::{AdvanceMetadata, VoucherMeta};
-use domain::game_core::{DinderError, ServerError};
+use domain::game_core::{DazzleError, ServerError};
 use ethers_core::types::{Address, U256};
 use serde::Serialize;
 use std::collections::HashMap;
@@ -38,7 +38,7 @@ impl BalanceManager {
     }
 
     #[allow(dead_code)]
-    pub fn withdraw(&mut self, address: &Address, amount: U256) -> Result<U256, DinderError> {
+    pub fn withdraw(&mut self, address: &Address, amount: U256) -> Result<U256, DazzleError> {
         match self.get_balance(address) {
             Some(current) => match current < &amount {
                 true => Err(ServerError::InsufficientBalance(

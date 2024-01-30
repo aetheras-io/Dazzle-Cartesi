@@ -2,7 +2,7 @@
 # Path and Variables
 SHELL := $(shell which bash)
 ORG := aetheras-io
-PROJECT := dinder
+PROJECT := dazzle
 REPO := github.com/${ORG}/${PROJECT}
 ROOT_DIR := $(CURDIR)
 TOOLCHAIN_TAG := 0.14.0
@@ -30,7 +30,7 @@ build-cartesi:
 		-w /app \
 		${TOOLCHAIN_IMG} /bin/bash -c "git config --global credential.helper store \
 			&& make build-in-riscv"
-	cp ./target/riscv64g-cartesi-linux-gnu/release/cartesi ../cartesi-dapp/dinder-cartesi-dapp.bin
+	cp ./target/riscv64g-cartesi-linux-gnu/release/cartesi ../cartesi-dapp/dazzle-cartesi-dapp.bin
 
 build-cartesi-env:
 	docker run -it --rm \

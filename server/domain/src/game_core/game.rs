@@ -22,7 +22,7 @@ use crate::game_core::event_module::{update_event, GameEvent, GamerMove};
 use crate::game_core::probability_mod::is_new_character_get;
 use crate::game_core::room_manager::GameMode;
 use crate::game_core::skill::{BuffInfo, SkillInfo};
-use crate::game_core::{DinderError, GameError, ServerError};
+use crate::game_core::{DazzleError, GameError, ServerError};
 
 use super::board::WaitAction;
 use super::reward::{CharacterReward, CurrencyReward, Reward, RewardType};
@@ -67,8 +67,8 @@ impl GameResult {
         self.game_over_result.get_winner_id()
     }
 
-    pub fn get_dinder_point(&self) -> u32 {
-        self.score_record.get_dinder_point()
+    pub fn get_dazzle_point(&self) -> u32 {
+        self.score_record.get_dazzle_point()
     }
 
     pub fn is_winner(&self, player_id: &str) -> bool {
@@ -129,12 +129,12 @@ pub struct ScoreRecord {
     gems_cleared: Vec<u32>,
     highest_combo: usize,
     total_damage: i32,
-    dinder_point: u32,
+    dazzle_point: u32,
 }
 
 impl ScoreRecord {
-    pub fn get_dinder_point(&self) -> u32 {
-        self.dinder_point
+    pub fn get_dazzle_point(&self) -> u32 {
+        self.dazzle_point
     }
 }
 
@@ -275,7 +275,7 @@ impl Room {
         &mut self,
         next_enemy_party: &[CharacterV2],
         config: &GameplayConfigManager,
-    ) -> Result<(), DinderError> {
+    ) -> Result<(), DazzleError> {
         self.update_enemy_gamer(&next_enemy_party);
 
         let new_enemy_gamer = GamerState::new(ENEMY_ADDR, next_enemy_party, config);
@@ -748,7 +748,7 @@ impl Room {
             (100.0 * decay_rate).round() as u32
         );
 
-        let dinder_point = (raw_score as f64 * decay_rate).ceil() as u32;
+        let dazzle_point = (raw_score as f64 * decay_rate).ceil() as u32;
 
         Ok(ScoreRecord {
             character_survive,
@@ -758,7 +758,7 @@ impl Room {
             gems_cleared,
             highest_combo,
             total_damage,
-            dinder_point,
+            dazzle_point,
         })
     }
 
