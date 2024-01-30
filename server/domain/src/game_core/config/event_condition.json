@@ -1,0 +1,39 @@
+{
+    "event_condition_list": [
+        {
+            "name": "ExtremelyHot",
+            "elem": "Fire",
+            "trigger_type": "Consecutive",
+            "clear_pattern": "Free",
+            "trigger_amount": 2
+        },
+        {
+            "name": "SuperWindy",
+            "elem": "Wind",
+            "trigger_type": "Consecutive",
+            "clear_pattern": "Free",
+            "trigger_amount": 2
+        },
+        {
+            "name": "FreezingCold",
+            "elem": "Water",
+            "trigger_type": "Consecutive",
+            "clear_pattern": "Free",
+            "trigger_amount": 2
+        },
+        {
+            "name": "SoBright",
+            "elem": "Light",
+            "trigger_type": "Consecutive",
+            "clear_pattern": "Free",
+            "trigger_amount": 2
+        },
+        {
+            "name": "DarkNight",
+            "elem": "Shadow",
+            "trigger_type": "Consecutive",
+            "clear_pattern": "Free",
+            "trigger_amount": 2
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+/target
+
+# Local .terraform directories
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+.terraformrc
+terraform.rc

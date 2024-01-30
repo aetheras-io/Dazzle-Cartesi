@@ -1,0 +1,15 @@
+{
+    "hp_min": 5000,
+    "hp_max": 10000,
+    "def_min": 40,
+    "def_max": 200,
+    "atk_min": 150,
+    "atk_max": 300,
+    "mono_sp_gem_min": 30,
+    "mono_sp_gem_max": 300,
+    "dual_sp_gem_min": -100,
+    "dual_sp_gem_range": 200,
+    "dual_sp_gem_gap_start": -30,
+    "dual_sp_gem_gap_range": 50,
+    "assist_modifier_rate": 200
+}

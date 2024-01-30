@@ -1,0 +1,78 @@
+{
+    "skill_param_table": {
+        "Damage": {
+            "energy_per_cast": 15,
+            "max_stack": 3,
+            "charge_rate": 1,
+            "active_turns": 0,
+            "consumable_amount": 255,
+            "value": 10000
+        },
+        "Recovery": {
+            "energy_per_cast": 21,
+            "max_stack": 2,
+            "charge_rate": 1,
+            "active_turns": 0,
+            "consumable_amount": 255,
+            "value": 15000
+        },
+        "DefenseAmplify": {
+            "energy_per_cast": 27,
+            "max_stack": 1,
+            "charge_rate": 1,
+            "active_turns": 2,
+            "consumable_amount": 255,
+            "value": 2000
+        },
+        "AttackAmplify": {
+            "energy_per_cast": 27,
+            "max_stack": 1,
+            "charge_rate": 1,
+            "active_turns": 2,
+            "consumable_amount": 255,
+            "value": 200
+        },
+        "ShieldNullify": {
+            "energy_per_cast": 18,
+            "max_stack": 1,
+            "charge_rate": 1,
+            "active_turns": 255,
+            "consumable_amount": 1,
+            "value": 0
+        },
+        "ShieldAbsorb": {
+            "energy_per_cast": 18,
+            "max_stack": 1,
+            "charge_rate": 1,
+            "active_turns": 1,
+            "consumable_amount": 1,
+            "value": 1000
+        },
+        "TurnTiles": {
+            "energy_per_cast": 21,
+            "max_stack": 1,
+            "charge_rate": 1,
+            "active_turns": 0,
+            "consumable_amount": 255,
+            "value": 0
+        },
+        "ElementalExplosion": {
+            "energy_per_cast": 21,
+            "max_stack": 1,
+            "charge_rate": 1,
+            "active_turns": 0,
+            "consumable_amount": 255,
+            "enable_clear_bead_damage": true,
+            "enable_falling_clear_damage": true
+        },
+        "LineEliminate": {
+            "energy_per_cast": 21,
+            "max_stack": 1,
+            "charge_rate": 1,
+            "active_turns": 0,
+            "consumable_amount": 255,
+            "enable_clear_bead_damage": false,
+            "enable_falling_clear_damage": true
+        }
+    }
+}

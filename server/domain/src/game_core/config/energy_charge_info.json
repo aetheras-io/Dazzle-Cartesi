@@ -1,0 +1,9 @@
+{
+    "clear_unit": 1,
+    "self_color_multiply": 2.0,
+    "diff_color_multiply": 1.0,
+    "recovery_each_turn": 0,
+    "recover_by_get_hit": "None",
+    "fixed_recovery_amount_by_hit": 1,
+    "recovery_by_damage_rate": 1.0
+}

@@ -1,0 +1,16 @@
+/target
+
+# Local .terraform directories
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+.terraformrc
+terraform.rc
+
+# Debug related
+print_log
+diff
+diff_*
+log_simulate*
+character_database.json
+nft_database.json

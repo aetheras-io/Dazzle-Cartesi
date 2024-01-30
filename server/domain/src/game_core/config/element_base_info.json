@@ -1,0 +1,33 @@
+{
+    "elements": {
+        "Fire": {
+            "bead": "Red",
+            "advantage_elem": "Wind",
+            "disadvantage_elem": "Water"
+        },
+        "Wind": {
+            "bead": "Green",
+            "advantage_elem": "Water",
+            "disadvantage_elem": "Fire"
+        },
+        "Water": {
+            "bead": "Blue",
+            "advantage_elem": "Fire",
+            "disadvantage_elem": "Wind"
+        },
+        "Light": {
+            "bead": "Yellow",
+            "advantage_elem": "Shadow",
+            "disadvantage_elem": "Shadow"
+        },
+        "Shadow": {
+            "bead": "Purple",
+            "advantage_elem": "Light",
+            "disadvantage_elem": "Light"
+        }
+    },
+    "value": {
+        "advantage_rate": 1200,
+        "weakness_rate": 800
+    }
+}

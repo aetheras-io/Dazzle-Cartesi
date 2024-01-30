@@ -1,0 +1,25 @@
+[package]
+name = "cartesi"
+version = "0.2.5"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+domain = { path = "../../domain", default-features = false, features = ["game_core"] }
+serde = { version = "1.0.114", features = ["derive"] }
+serde_json = "1.0.57"
+tokio = { version = "1", features = ["signal", "rt-multi-thread", "net", "time", "macros"] }
+atb = { git = "https://github.com/aetheras-io/atb-rs", tag = "v0.14.5", default-features = false }
+atb-types = { git = "https://github.com/aetheras-io/atb-rs", tag = "v0.14.5", default-features = false }
+rand = "0.8.4"
+
+clap = { version = "3.1.6", features = ["derive", "env"] }
+async-trait = "0.1.41"
+hyper = { version = "0.14.15", features = ["http1", "runtime", "client"] }
+log = "0.4"
+strum = "0.19.2"
+strum_macros = "0.19.2"
+
+ethers-core = "0.17.0"
+base64 = "0.21.5"

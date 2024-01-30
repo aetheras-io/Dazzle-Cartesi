@@ -1,0 +1,30 @@
+[package]
+name = "domain"
+version = "0.2.5"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+async-trait = { version = "0.1.41", optional = true }
+redis = { version = "0.19.0", optional = true }
+bb8 = { version = "0.7.0", optional = true }
+bb8-redis = { version = "0.8.0", optional = true }
+serde = { version = "1.0.114", features = ["derive"] }
+serde_json = { version = "1.0.57" }
+atb = { git = "https://github.com/aetheras-io/atb-rs", tag = "v0.14.5" }
+atb-types = { git = "https://github.com/aetheras-io/atb-rs", tag = "v0.14.5" }
+strum = "0.19.2"
+strum_macros = "0.19.2"
+ethers-core = "0.17.0"
+log = "0.4"
+walkdir = "2"
+tokio = { version = "1", features = ["signal", "rt-multi-thread", "net", "time", "macros"] }
+
+#for game_core
+rand = { version = "0.8.4", optional = true }
+serde_repr = { version = "0.1.7", optional = true }
+
+[features]
+game_core = ["rand", "serde_repr"]
+debug_tool = []
